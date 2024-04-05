@@ -1,0 +1,13 @@
+.alphabet-tray {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.row-1,
+.row-2,
+.row-3 {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}

@@ -1,0 +1,37 @@
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #818384;
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.in_solution {
+    background-color: #b59f3b;
+    border: 1px solid #b59f3b;
+}
+
+.in_position {
+    /* green color */
+    background-color: #538d4e;
+    border: 1px solid #538d4e;
+}
+
+.not_in_solution {
+    background-color: #3a3a3c;
+    border: 1px solid #3a3a3c;
+}
+
+.empty {
+    background-color: #3a3a3c;
+    border: 1px solid #818384;
+    cursor: default;
+}
