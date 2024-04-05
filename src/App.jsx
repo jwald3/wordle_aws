@@ -15,20 +15,26 @@ function App() {
     const [currentGuess, setCurrentGuess] = useState("");
     const [answer, setAnswer] = useState("");
     
+    const apiUrl = "https://chimpcodes.pythonanywhere.com/wordle"
+
     useEffect(() => {
         getGameState(gameId);
     }, [gameId]);
     
     const newGame = async (letterCount, hardMode) => {
-        const url = "http://localhost:5000/wordle";
+        const url = apiUrl;
         setAnswer(""); // Reset answer before making a new request  
         setErrorMessage(""); // Reset error message before making a new request
+
+        console.log(url)
 
         try {
             const response = await axios.post(url, { letter_count: parseInt(letterCount), hard_mode: hardMode });
 
             if (response.status === 200) {
+                console.log(response.data)
                 setGameId(response.data.game_id);
+
             } else {
                 setErrorMessage("Failed to create a new game");
             }
@@ -38,7 +44,7 @@ function App() {
     }
     
     const handleGuess = async (guess, game_id) => {
-        const url = `http://localhost:5000/wordle/${game_id}/guess`;
+        const url = `${apiUrl}/${game_id}/guess`;
         setErrorMessage(""); // Reset error message before making a new request
     
         try {
@@ -54,7 +60,8 @@ function App() {
     }
     
     const getGameState = async (game_id) => {
-        const url = `http://localhost:5000/wordle/${game_id}`;
+        const url = `${apiUrl}/${game_id}`;
+        console.log(url)
         setErrorMessage(""); // Reset error message before making a new request
     
         try {
@@ -112,16 +119,20 @@ function App() {
                 />
                 <button onClick={() => newGame(letterCount, hardMode)}>New Game</button>
             </div>
-            <div className="text-input">
-                <input type="text" placeholder="Enter a word" value={currentGuess} onChange={(e) => setCurrentGuess(e.target.value)}/>
-                <button onClick={() => handleGuess(currentGuess, gameId)}>
-                    Submit
-                </button>
-            </div>
-            {errorMessage && <div className="error">{errorMessage}</div>}
-            <GuessContainer number_of_letters={letterCount} guesses={guesses} />
-            {answer && <div className="answer">The answer was: {answer}</div>}
-            <AlphabetContainer letters={letters} />
+            { gameId && (
+                <>
+                    <div className="text-input">
+                        <input type="text" placeholder="Enter a word" value={currentGuess} onChange={(e) => setCurrentGuess(e.target.value)}/>
+                        <button onClick={() => handleGuess(currentGuess, gameId)}>
+                            Submit
+                        </button>
+                    </div>
+                    {errorMessage && <div className="error">{errorMessage}</div>}
+                    <GuessContainer number_of_letters={letterCount} guesses={guesses} />
+                    {answer && <div className="answer">The answer was: {answer}</div>}
+                    <AlphabetContainer letters={letters} />
+                </>
+            )}
         </div>
     );
 }
