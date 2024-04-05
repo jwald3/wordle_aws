@@ -21,6 +21,10 @@ function App() {
     useEffect(() => {
         getGameState(gameId);
     }, [gameId]);
+
+    useEffect(() => {
+        setGameId("");
+    }, [letterCount, hardMode]);
     
     const newGame = async (letterCount, hardMode) => {
         const url = apiUrl;
