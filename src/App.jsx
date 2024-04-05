@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import AlphabetContainer from "./components/AlphabetContainer";
 import GuessContainer from "./components/GuessContainer";
+import FlagIcon from '@mui/icons-material/Flag';
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -58,6 +59,22 @@ function App() {
             setErrorMessage(error.response?.data?.message || error.message);
         }
     }
+
+    const surrenderGame = async (game_id) => {
+        const url = `${apiUrl}/${game_id}/surrender`;
+        setErrorMessage(""); // Reset error message before making a new request
+
+        try {
+            const response = await axios.post(url);
+            if (response.status === 200) {
+                // re-fetch the game state
+                getGameState(game_id);
+            }
+        } catch (error) {
+            setErrorMessage(error.response?.data?.message || error.message);
+        }
+    }
+
     
     const getGameState = async (game_id) => {
         const url = `${apiUrl}/${game_id}`;
@@ -121,10 +138,22 @@ function App() {
             </div>
             { gameId && (
                 <>
-                    <div className="text-input">
+                    <div className="text-input" style={{
+                        display: "flex",
+                        gap: "5px",
+                        width: "100%",
+                        height: "50px",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    
+                    }}>
                         <input type="text" placeholder="Enter a word" value={currentGuess} onChange={(e) => setCurrentGuess(e.target.value)}/>
                         <button onClick={() => handleGuess(currentGuess, gameId)}>
                             Submit
+                        </button>
+                        {/* Flag icon button to surrender */}
+                        <button onClick={() => surrenderGame(gameId)}>
+                            <FlagIcon />
                         </button>
                     </div>
                     {errorMessage && <div className="error">{errorMessage}</div>}
