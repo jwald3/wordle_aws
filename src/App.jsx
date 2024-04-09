@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import AlphabetContainer from "./components/AlphabetContainer";
 import GuessContainer from "./components/GuessContainer";
 import FlagIcon from "@mui/icons-material/Flag";
 import axios from "axios";
 import { useEffect } from "react";
-import { getToken, saveToken, removeToken } from "./utils/tokenService"; // Utilities to manage tokens
+import { getToken, saveToken, } from "./utils/tokenService"; // Utilities to manage tokens
 import AuthForm from "./components/AuthForm";
 
 function App() {
@@ -23,8 +23,7 @@ function App() {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    const apiUrl = "https://chimpcodes.pythonanywhere.com"
-    // const apiUrl = "http://127.0.0.1:5000";
+    const apiUrl = "https://chimpcodes.pythonanywhere.com"; // Use the correct API URL
 
     useEffect(() => {
         getGameState(gameId);
