@@ -23,8 +23,8 @@ function App() {
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    // const apiUrl = "https://chimpcodes.pythonanywhere.comwordle"
-    const apiUrl = "http://127.0.0.1:5000";
+    const apiUrl = "https://chimpcodes.pythonanywhere.com/wordle"
+    // const apiUrl = "http://127.0.0.1:5000";
 
     useEffect(() => {
         getGameState(gameId);
