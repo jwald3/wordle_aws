@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import './GuessLetterTray.css';
 import AlphabetTile from './AlphabetTile';
 
-const GuessLetterTray = ({ number_of_letters, guess }) => {
+const GuessLetterTray = ({ number_of_letters, guess, gameOver }) => {
     return (
         // a container that contains a word guessed by the player
         <div className="guess-letter-tray">
@@ -18,7 +18,7 @@ const GuessLetterTray = ({ number_of_letters, guess }) => {
                 return <AlphabetTile key={index} letterValue={letter.letter} status={status} />;
             })}
             {Array(number_of_letters - guess.length).fill().map((_, index) => (
-                <AlphabetTile key={index} letterValue="" status="empty" />
+                <AlphabetTile key={index} letterValue="" status={gameOver ? 'passed' : 'empty'} />
             ))}
         </div>
     )
@@ -30,7 +30,8 @@ GuessLetterTray.propTypes = {
         correct_position: PropTypes.bool.isRequired,
         in_solution: PropTypes.bool.isRequired,
         letter: PropTypes.string.isRequired
-    })).isRequired
+    })).isRequired,
+    gameOver: PropTypes.bool.isRequired
 }
 
 export default GuessLetterTray

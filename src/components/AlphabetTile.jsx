@@ -18,6 +18,9 @@ const AlphabetTile = ({ letterValue, status}) => {
         case "empty":
             className = "empty";
             break;
+        case "passed":
+            className = "passed";
+            break;
         default:
             break;
     }

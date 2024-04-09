@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import GuessLetterTray from "./GuessLetterTray";
 
-const GuessContainer = ({ number_of_letters, guesses }) => {
+const GuessContainer = ({ number_of_letters, guesses, gameOver }) => {
     // there will be (number_of_letters + 1) GuessLetterTray components. Guesses is an array of arrays of objects that'll be used to populate the GuessLetterTray components.
     // Not every GuessLetterTray will be populated with guesses. Some will be empty.
 
@@ -21,6 +21,7 @@ const GuessContainer = ({ number_of_letters, guesses }) => {
                             key={index}
                             number_of_letters={number_of_letters}
                             guess={guesses[index] || []}
+                            gameOver={gameOver}
                         />
                     );
                 })}
@@ -37,6 +38,7 @@ GuessContainer.propTypes = {
             letter: PropTypes.string.isRequired,
         })
     ).isRequired,
+    gameOver: PropTypes.bool.isRequired,
 };
 
 export default GuessContainer;
